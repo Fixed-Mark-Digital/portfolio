@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jeff Reed | Web Development and Accessibility Portfolio</title>
+  <meta name="description" content="Selected Shopify development and WCAG accessibility work by Jeff Reed.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jeff Reed | Web Development and Accessibility Portfolio">
+  <meta property="og:description" content="Selected Shopify development and WCAG accessibility work.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --charcoal: #0f1720;
+      --teal: #14b8a6;
+      --teal-text: #0b6e66;
+      --warm-gray: #f5f4f2;
+      --tag-bg: #e2ded8;
+      --muted: #5a6070;
+      --border: #e2ded8;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--charcoal);
+      background: var(--warm-gray);
+    }
+    h1, h2, h3 { font-family: "Montserrat", "Inter", sans-serif; font-weight: 700; line-height: 1.15; margin: 0; }
+    p { margin: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    .wrap { width: min(1120px, 100% - 2rem); margin-inline: auto; }
+
+    .skip-link {
+      position: absolute; left: 1rem; top: -4rem;
+      background: var(--teal); color: var(--charcoal);
+      padding: .6rem 1rem; font-weight: 500; border-radius: 4px; z-index: 10;
+    }
+    .skip-link:focus { top: 1rem; }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+    /* Header */
+    .intro { background: var(--charcoal); color: #fff; padding: 4rem 0 3.5rem; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: "Montserrat", sans-serif; font-weight: 700;
+      font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--teal-text); margin-bottom: .75rem;
+    }
+    .eyebrow::before { content: ""; width: 10px; height: 1px; background: currentColor; }
+    .intro .eyebrow { color: var(--teal); }
+    .intro h1 { font-size: clamp(2.25rem, 6vw, 3.5rem); margin-bottom: 1rem; }
+    .intro p { max-width: 38rem; color: rgba(255,255,255,.75); font-size: 1.125rem; }
+
+    /* Sections */
+    section.group { padding: 4rem 0 1rem; }
+    section.group:last-of-type { padding-bottom: 4.5rem; }
+    .group-head { margin-bottom: 1.75rem; }
+    .group-head h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+    .group-head p { color: var(--muted); max-width: 38rem; margin-top: .5rem; }
+
+    .grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 900px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+
+    /* Cards */
+    .card {
+      background: #fff; border: 1px solid var(--border); border-radius: 4px;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .shot { background: var(--charcoal); aspect-ratio: 1200 / 532; overflow: hidden; }
+    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+    .body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--tag-bg); color: var(--charcoal);
+      font-family: "Montserrat", sans-serif; font-weight: 700;
+      font-size: .625rem; letter-spacing: .08em; text-transform: uppercase;
+      padding: .25rem .5rem; border-radius: 2px; margin-bottom: 1rem;
+    }
+    .card h3 { font-size: 1.5rem; margin-bottom: .25rem; }
+    .sub { color: var(--muted); font-size: .9375rem; margin-bottom: 1.25rem; }
+    .label {
+      font-family: "Montserrat", sans-serif; font-weight: 700;
+      font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--teal-text); margin: 1rem 0 .25rem;
+    }
+    .body p.text { color: var(--muted); font-size: .9375rem; }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem;
+      border-top: 1px solid var(--border); margin-top: auto; padding-top: 1.25rem;
+    }
+    .body .text + .stats, .body .text:last-of-type { margin-bottom: 1.5rem; }
+    .stat-value { display: block; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 1.125rem; color: var(--teal-text); line-height: 1.2; }
+    .stat-label { display: block; font-size: .75rem; color: var(--muted); margin-top: .25rem; }
+
+    /* Featured (dark) card */
+    .card.featured { background: var(--charcoal); border-color: rgba(20,184,166,.35); color: #fff; }
+    .card.featured .tag { background: var(--teal); }
+    .card.featured .sub, .card.featured p.text, .card.featured .stat-label { color: rgba(255,255,255,.78); }
+    .card.featured .label, .card.featured .stat-value { color: var(--teal); }
+    .card.featured .stats { border-top-color: rgba(255,255,255,.18); }
+    @media (min-width: 900px) {
+      .card.featured .body { padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3rem; }
+      .card.featured .head { grid-column: 1 / -1; }
+      .card.featured .stats { grid-column: 1 / -1; margin-top: 1.5rem; }
+    }
+
+    /* Design card */
+    .card.design { flex-direction: column; }
+    .card.design .poster { background: var(--warm-gray); padding: 1.5rem; display: flex; justify-content: center; }
+    .card.design .poster img { width: min(100%, 320px); border: 1px solid var(--border); }
+    @media (min-width: 700px) {
+      .card.design { flex-direction: row; }
+      .card.design .poster { flex: 0 0 380px; }
+    }
+
+    footer { background: var(--charcoal); color: rgba(255,255,255,.7); padding: 2rem 0; font-size: .875rem; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="intro">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Jeff Reed</h1>
+      <p>Web developer and accessibility specialist. Shopify builds, WCAG remediation and long-term site support, with 8+ years in front-end development.</p>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="group" aria-labelledby="studies-heading">
+      <div class="wrap">
+        <div class="group-head">
+          <p class="eyebrow">Completed projects</p>
+          <h2 id="studies-heading">Case studies</h2>
+        </div>
+
+        <div class="grid">
+
+          <!-- NYPL Shop -->
+          <article class="card featured">
+            <div class="body">
+              <div class="head">
+                <span class="tag">Accessibility &middot; Retail</span>
+                <h3>NYPL Shop</h3>
+                <p class="sub">WCAG 2.2 AA remediation of a Shopify store</p>
+              </div>
+              <div>
+                <p class="label">The problem</p>
+                <p class="text">A third-party accessibility audit flagged 51 distinct issues across the site, including 8 critical ones that blocked keyboard and screen reader users from navigation, search, cart and checkout.</p>
+                <p class="label">The outcome</p>
+                <p class="text">All 51 issues confirmed fixed through iterative retesting, with zero violations outstanding at handoff.</p>
+              </div>
+              <div>
+                <p class="label">What I did</p>
+                <p class="text">Page-by-page remediation across the full Shopify theme: accessible navigation and modals, corrected ARIA roles and focus management, color contrast fixes, semantic headings, labeled form fields, and keyboard-accessible carousels and date pickers. Every fix went through a retest cycle with the auditing firm.</p>
+              </div>
+              <div class="stats">
+                <div><span class="stat-value">51</span><span class="stat-label">Issues resolved</span></div>
+                <div><span class="stat-value">8 weeks</span><span class="stat-label">Audit to completion</span></div>
+                <div><span class="stat-value">100%</span><span class="stat-label">Confirmed fixed</span></div>
+              </div>
+            </div>
+          </article>
+
+          <div class="grid two">
+
+            <!-- GUIERA -->
+            <article class="card">
+              <div class="shot">
+                <img src="assets/guiera-screenshot.webp" width="1200" height="629" loading="lazy"
+                     alt="GUIERA online store homepage with a lighthouse hero image and a Listen Now button">
+              </div>
+              <div class="body">
+                <span class="tag">Shopify &middot; Music</span>
+                <h3>GUIERA</h3>
+                <p class="sub">Shopify storefront for a music ministry</p>
+                <p class="label">The problem</p>
+                <p class="text">An independent music artist needed a professional storefront for merch, digital downloads and show dates, without being locked into an agency for every update.</p>
+                <p class="label">What I did</p>
+                <p class="text">A custom Shopify theme with a product setup built for both physical and digital goods, in a clean, mobile-first design matched to the artist's brand.</p>
+                <p class="label">The outcome</p>
+                <p class="text">The store is live and fully documented. The artist manages updates, orders and inventory independently.</p>
+                <div class="stats">
+                  <div><span class="stat-value">Shopify</span><span class="stat-label">Platform</span></div>
+                  <div><span class="stat-value">100%</span><span class="stat-label">Client-operated</span></div>
+                  <div><span class="stat-value">Full</span><span class="stat-label">Documented handoff</span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Cold Diggers -->
+            <article class="card">
+              <div class="shot">
+                <img src="assets/cold-diggers-screenshot.webp" width="1200" height="542" loading="lazy"
+                     alt="Cold Diggers Ice Cream online storefront">
+              </div>
+              <div class="body">
+                <span class="tag">Shopify &middot; POS</span>
+                <h3>Cold Diggers Ice Cream</h3>
+                <p class="sub">Online store and in-person point of sale</p>
+                <p class="label">The problem</p>
+                <p class="text">A brick-and-mortar ice cream shop tracked online and in-store inventory separately. Keeping the two in sync by hand caused errors and took time every week.</p>
+                <p class="label">What I did</p>
+                <p class="text">I built a Shopify storefront for online pre-orders and set up Shopify POS for in-person sales. Both channels run from one product catalog, so there is nothing to reconcile.</p>
+                <p class="label">The outcome</p>
+                <p class="text">Online and in-store sales now draw from the same inventory, with stock levels, sales and reporting in one place.</p>
+                <div class="stats">
+                  <div><span class="stat-value">2</span><span class="stat-label">Sales channels</span></div>
+                  <div><span class="stat-value">1</span><span class="stat-label">Product catalog</span></div>
+                  <div><span class="stat-value">1</span><span class="stat-label">Inventory count</span></div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="ongoing-heading">
+      <div class="wrap">
+        <div class="group-head">
+          <p class="eyebrow">Ongoing projects</p>
+          <h2 id="ongoing-heading">Long-term support</h2>
+          <p>Teams that keep me on for updates, fixes and new features after the build.</p>
+        </div>
+
+        <div class="grid two">
+
+          <!-- Pete & Pedro -->
+          <article class="card">
+            <div class="shot">
+              <img src="assets/pete-and-pedro-homepage.webp" width="1200" height="532" loading="lazy"
+                   alt="Pete &amp; Pedro homepage with a body wash promotion and the main navigation">
+            </div>
+            <div class="body">
+              <span class="tag">Shopify Plus &middot; Ongoing</span>
+              <h3>Pete &amp; Pedro</h3>
+              <p class="sub">Ongoing Shopify Plus development</p>
+              <p class="label">The need</p>
+              <p class="text">A busy Shopify Plus store needs a developer who already knows its theme, apps and quirks, so fixes and new features ship without a learning curve.</p>
+              <p class="label">Recent work</p>
+              <p class="text">A subscription benefits callout on product pages, a checkout order-notes field built with Checkout Blocks and Shopify Flow, ad conversion tracking for a new advertising platform, and fixes for Amazon order imports and subscription add-to-cart bugs.</p>
+              <div class="stats">
+                <div><span class="stat-value">Plus</span><span class="stat-label">Platform</span></div>
+                <div><span class="stat-value">Ongoing</span><span class="stat-label">Support</span></div>
+                <div><span class="stat-value">Long-term</span><span class="stat-label">Relationship</span></div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Restore City Church -->
+          <article class="card">
+            <div class="shot">
+              <img src="assets/restore-city-church-homepage.webp" width="1200" height="545" loading="lazy"
+                   alt="Restore City Church homepage with three campus panels: Moses Lake, Espanol and Tri-Cities">
+            </div>
+            <div class="body">
+              <span class="tag">Website &middot; Media &middot; Staff role</span>
+              <h3>Restore City Church</h3>
+              <p class="sub">Ongoing website, tech and media support</p>
+              <p class="label">The need</p>
+              <p class="text">A multi-campus church needs a page for each campus and someone to keep the technology running.</p>
+              <p class="label">What I do</p>
+              <p class="text">Campus pages built as full mini-homepages with video heroes and in-page navigation, a campus picker that sends visitors to the right ministry pages, and day-to-day updates, forms, email and DNS troubleshooting, and media support. Campus pages are being rebuilt one campus at a time.</p>
+              <div class="stats">
+                <div><span class="stat-value">3</span><span class="stat-label">Campuses</span></div>
+                <div><span class="stat-value">Ongoing</span><span class="stat-label">Support</span></div>
+                <div><span class="stat-value">Staff</span><span class="stat-label">Role</span></div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="design-heading">
+      <div class="wrap">
+        <div class="group-head">
+          <p class="eyebrow">Design work</p>
+          <h2 id="design-heading">Graphics and print</h2>
+        </div>
+
+        <article class="card design">
+          <div class="poster">
+            <img src="assets/equine-poster.webp" width="800" height="1035" loading="lazy"
+                 alt="Flyer for King Starlight Dunit, a buckskin stallion, with three photos of him and his owner, a teal banner listing his championships, and a breeding fee">
+          </div>
+          <div class="body">
+            <span class="tag">Print &middot; Flyer</span>
+            <h3>Stallion nomination flyer</h3>
+            <p class="sub">Designed for an equine breeding client</p>
+            <p class="label">The need</p>
+            <p class="text">A horse breeder invited to nominate their stallion for a state incentive program needed a flyer that put the horse's record, photos and breeding terms on one page.</p>
+            <p class="label">What I did</p>
+            <p class="text">Designed a single-page flyer with a clear hierarchy: the horse's name, a banner of his titles, a photo collage, and a bold breeding fee panel.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>&copy; Jeff Reed</p>
+    </div>
+  </footer>
+</body>
+</html>
